@@ -8,11 +8,13 @@ const adminRoute = require('./adminRoute')
 const chatRoute = require('./chatRoute')
 
 const userController = require('../../controllers/userController')
+const noticeController = require('../../controllers/noticeController')
 
 const { authenticated, checkRole } = require('../../middlewares/auth')
 
 router.post('/signin', userController.signIn)
 router.get('/current_user', authenticated, userController.getCurrentUser)
+router.get('/notice', authenticated, noticeController.getNotice)
 
 router.use('/users', userRoute)
 router.use('/tweets', authenticated, checkRole(), tweetRoute)
