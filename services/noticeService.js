@@ -9,14 +9,14 @@ const noticeService = {
   },
 
   postNotice: async (ticket) => {
-    const notiId = await noticeService.postNoticeInfo(ticket.info)
+    const noti = await noticeService.postNoticeInfo(ticket.info)
 
     const arr = Array.from({ length: ticket.SubscribersList.length }, (v, i) => ({
-      NoticeInfoId: notiId,
+      NoticeInfoId: noti.id,
       PublisherId: ticket.userId,
       SubscriberId: ticket.SubscribersList[i].id
     }))
-
+    console.log(arr)
     await Notice.bulkCreate(arr)
   },
 
