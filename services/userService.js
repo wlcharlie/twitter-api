@@ -19,6 +19,7 @@ const userService = {
         'id', 'email', 'name', 'avatar', 'introduction', 'cover', 'role', 'createdAt',
         [Sequelize.fn('concat', '@', Sequelize.col('User.account')), 'account'],
         [Sequelize.literal(`EXISTS (SELECT 1 FROM Followships WHERE FollowerId = ${currentUserId} AND FollowingId = User.id)`), 'isFollowed'],
+        [Sequelize.literal(`EXISTS (SELECT 1 FROM Subscriptions WHERE SubscriberId  = ${currentUserId} AND PublisherId = User.id)`), 'isSubscribe'],
         [Sequelize.literal('COUNT(DISTINCT Tweets.id)'), 'tweetsCount']
       ],
       include: [

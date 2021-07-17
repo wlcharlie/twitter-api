@@ -14,6 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       get: function() {
         return !!this.getDataValue('isFollowed')
       }
+    },
+    isSubscribe: {
+      type: DataTypes.VIRTUAL,
+      get: function() {
+        return !!this.getDataValue('isSubscribe')
+      }
     }
   }, {})
   User.associate = function(models) {
