@@ -29,13 +29,13 @@ module.exports = (sequelize, DataTypes) => {
     User.belongsToMany(User, {
       through: models.Subscription,
       foreignKey: 'SubscriberId',
-      as: 'Subscribers'
+      as: 'Publishers'
     })
 
     User.belongsToMany(User, {
       through: models.Subscription,
       foreignKey: 'PublisherId',
-      as: 'Publishers'
+      as: 'Subscribers'
     })
 
     User.belongsToMany(User, {
