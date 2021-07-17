@@ -1,6 +1,7 @@
 const tweetService = require('../services/tweetService')
 const noticeService = require('../services/noticeService')
 const RequestError = require('../utils/customError')
+const ticketPacking = require('../utils/ticketPacking')
 
 const tweetController = {
   getTweets: async (req, res, next) => {
@@ -32,15 +33,7 @@ const tweetController = {
         description
       }
       const data = await tweetService.postTweet(postData)
-      const ticket = {
-        info: {
-          objection: 'tweets',
-          type: 'new',
-          tweetId: data.tweetId
-        },
-        SubscribersList: req.user.Subscribers,
-        userId: req.user.id
-      }
+      const ticket = await ticketPacking('tweets', 'new', data.tweetId, req.user.Subscribers, req.user.id)
       await noticeService.postNotice(ticket)
       return res.json(data)
     } catch (error) {
@@ -78,7 +71,9 @@ const tweetController = {
         comment
       }
       const data = await tweetService.postReply(replyData)
-      // TODO給對方通知
+      // TODO第四個參數要帶回覆之貼文的userID(貼文作者)
+      const ticket = await ticketPacking('tweets', 'replied', data.tweetId, [{ id: 123 }], req.user.id)
+      await noticeService.postNotice(ticket)
       return res.json(data)
     } catch (error) {
       next(error)
@@ -92,7 +87,9 @@ const tweetController = {
         TweetId: req.params.tweet_id
       }
       const data = await tweetService.likeTweet(likeData)
-      // TODO給對方通知
+      // TODO第四個參數要帶喜歡之貼文的userID(貼文作者)
+      const ticket = await ticketPacking('tweets', 'liked', data.tweetId, [{ id: 123 }], req.user.id)
+      await noticeService.postNotice(ticket)
       return res.json(data)
     } catch (error) {
       next(error)

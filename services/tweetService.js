@@ -74,13 +74,13 @@ const tweetService = {
   },
 
   postReply: async (reply) => {
-    await Reply.create(reply)
-    return { status: 'success', message: 'A reply has created' }
+    const data = await Reply.create(reply)
+    return { status: 'success', message: 'A reply has created', tweetId: data.TweetId }
   },
 
   likeTweet: async (like) => {
-    await Like.create(like)
-    return { status: 'success', message: 'A like has created' }
+    const data = await Like.create(like)
+    return { status: 'success', message: 'A like has created', tweetId: data.TweetId }
   },
 
   unlikeTweet: async (unlike) => {
