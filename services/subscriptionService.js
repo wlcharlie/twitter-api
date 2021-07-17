@@ -14,14 +14,6 @@ const subscriptionService = {
   unSubscription: async (subscriptionReq) => {
     await Subscription.destroy({ where: subscriptionReq })
     return { status: 'success', message: 'A Subscription has destroy' }
-  },
-
-  getSubscribersList: async (currentUserId) => {
-    return await Subscription.findAll({
-      raw: true,
-      attributes: ['SubscriberId'],
-      where: { PublisherId: currentUserId }
-    })
   }
 }
 
