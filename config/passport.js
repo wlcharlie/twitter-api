@@ -11,7 +11,9 @@ const jwtOptions = {
 }
 
 passport.use(new JwtStrategy(jwtOptions, async (jwtPayload, next) => {
-  const user = await User.findByPk(jwtPayload.id)
+  const user = await User.findByPk(jwtPayload.id, {
+    include: [{ model: User, as: 'Publishers', attributes: ['id'], through: { attributes: [] } }]
+  })
   if (!user) {
     return next(null, false)
   }
