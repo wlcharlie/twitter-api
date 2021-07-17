@@ -9,6 +9,7 @@ const followshipController = {
       if (followReq.followerId === +followReq.followingId) throw new RequestError('You cannot follow yourself.')
 
       const data = await followshipService.addFollow(followReq)
+      // TODO給對方通知
       return res.json(data)
     } catch (error) {
       next(error)

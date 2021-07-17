@@ -78,6 +78,7 @@ const tweetController = {
         comment
       }
       const data = await tweetService.postReply(replyData)
+      // TODO給對方通知
       return res.json(data)
     } catch (error) {
       next(error)
@@ -91,6 +92,7 @@ const tweetController = {
         TweetId: req.params.tweet_id
       }
       const data = await tweetService.likeTweet(likeData)
+      // TODO給對方通知
       return res.json(data)
     } catch (error) {
       next(error)
