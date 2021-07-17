@@ -39,8 +39,8 @@ const tweetService = {
   },
 
   postTweet: async (tweet) => {
-    await Tweet.create(tweet)
-    return { status: 'success', message: 'A tweet has created' }
+    const data = await Tweet.create(tweet)
+    return { status: 'success', message: 'A tweet has created', tweetId: data.id }
   },
 
   getTweet: async (currentUserId, tweetId) => {

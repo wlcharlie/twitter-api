@@ -1,4 +1,5 @@
 const tweetService = require('../services/tweetService')
+const noticeService = require('../services/noticeService')
 const RequestError = require('../utils/customError')
 
 const tweetController = {
@@ -31,6 +32,16 @@ const tweetController = {
         description
       }
       const data = await tweetService.postTweet(postData)
+      const ticket = {
+        info: {
+          objection: 'tweets',
+          type: 'new',
+          tweetId: data.tweetId
+        },
+        SubscribersList: req.user.Subscribers,
+        userId: req.user.id
+      }
+      await noticeService.postNotice(ticket)
       return res.json(data)
     } catch (error) {
       next(error)
