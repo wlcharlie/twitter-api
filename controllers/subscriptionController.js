@@ -1,6 +1,6 @@
 const RequestError = require('../utils/customError')
 
-const subscriptionService = require('../services/followshipService')
+const subscriptionService = require('../services/subscriptionService')
 
 const subscriptionController = {
   addSubscription: async (req, res, next) => {

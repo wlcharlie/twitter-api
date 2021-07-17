@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate (models) {
       NoticeInfo.hasMany(models.Notice)
+      NoticeInfo.belongsTo(models.Tweet)
+      NoticeInfo.belongsTo(models.User)
     }
   };
   NoticeInfo.init({

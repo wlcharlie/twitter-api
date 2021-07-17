@@ -1,10 +1,11 @@
-const { Notice, NoticeInfo } = require('../models')
+const { Notice, NoticeInfo, Tweet, User } = require('../models')
 
 const noticeService = {
   getNotice: async (userId) => {
     return await Notice.findAll({
       where: { SubscriberId: userId },
-      include: NoticeInfo
+      include: { model: NoticeInfo, include: [Tweet, User] },
+      order: [['createdAt', 'DESC']]
     })
   },
 
