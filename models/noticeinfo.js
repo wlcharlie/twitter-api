@@ -10,12 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate (models) {
-      NoticeInfo.belongsTo(models.Notice)
+      NoticeInfo.hasMany(models.Notice)
     }
   };
   NoticeInfo.init({
-    objection: DataTypes.ENUM,
-    type: DataTypes.ENUM,
+    objection: { type: DataTypes.ENUM, values: ['tweets', 'users'] },
+    type: { type: DataTypes.ENUM, values: ['new', 'liked', 'followed', 'replied'] },
     UserId: DataTypes.INTEGER,
     TweetId: DataTypes.INTEGER
   }, {

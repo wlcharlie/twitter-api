@@ -5,15 +5,15 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     isLike: {
       type: DataTypes.VIRTUAL,
-      get: function () {
+      get: function() {
         return !!this.getDataValue('isLike')
       }
     }
   }, {})
-  Tweet.associate = function (models) {
+  Tweet.associate = function(models) {
     Tweet.hasMany(models.Like, { onDelete: 'cascade', hooks: true })
     Tweet.hasMany(models.Reply, { onDelete: 'cascade', hooks: true })
-
+    Tweet.hasMany(models.NoticeInfo)
     Tweet.belongsTo(models.User)
   }
   return Tweet
